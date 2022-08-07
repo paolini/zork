@@ -40,7 +40,7 @@ function new_connection(ws, req, client) {
             console.log(connection_id + " PLAY " + name);
         } else if (message.startsWith("CMD ")) {
             message = message.substring(4);
-            connection.session.command(message);
+            connection.session.write(message);
         } else if (message.startsWith("BYE ")) {
             close_connection(connection);        
         } else {

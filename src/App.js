@@ -57,25 +57,14 @@ class Session {
     this.client.send("STA " + (name || "pippo"));
   }
 
+  command(cmd) {
+    this.client.send("CMD " + cmd);
+  }
+
   close() {
     this.on_close(this)
     this.client.close()
   }
-}
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-      const handle = setInterval(() => setCount(c => c+1), 1000)
-      return () => {
-        clearInterval(handle)
-      }
-  }, []);
-
-  return (
-      <p>Count: {count}</p>
-  );
 }
 
 function Game() {
@@ -90,7 +79,10 @@ function Game() {
       'on_output': msg => {
         console.log(`on_output: ${msg}`)
         setOutputs(old => [...old, msg])
-      } 
+      },
+      'on_close': () => {
+        setSession(null);
+      }
     })
     setSession(session);
     return () => {
@@ -98,25 +90,40 @@ function Game() {
     }
   }, [])
 
+  useEffect(() => {
+    window.scrollTo(0,document.body.scrollHeight);
+    // const inputEl = this.inputRef.current;
+    // if (inputEl) inputEl.focus();    
+  })
 
-  if (session) {
-    return <>
-      { outputs.map((msg, i) => <pre key={ i }>{ msg }</pre>) }
-      <br />
-      <input size={ 80 } />
-    </>
-  } else {
-    return <p>connectiong...</p>
+  function exec(command) {
+    session.command(command)
   }
+
+  function inputChange(event) {
+    if (event.code === "Enter") {
+      exec(event.target.value);
+      event.target.value = "";
+    }
+  }
+
+  if (!session) return <p>connecting...</p>
+
+  return <>
+    { outputs.map((msg, i) => <pre key={ i }>{ msg }</pre>) }
+    <div>
+    <input placeholder="write command" size={ 40 } onKeyUp={ inputChange } />
+    <button onClick={ exec }>EXEC</button>
+    </div>
+  </>
 }
 
 function App() {
-  return (
+    return (
     <div className="App">
       <header className="App-header">
         <h4>Zork classic dungeon</h4>
       <Game />
-      <Counter />
       </header>
     </div>
   );

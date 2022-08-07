@@ -20,7 +20,8 @@ class Session {
             console.error(`cannot write: no process started`);
             return;
         }
-        this.ps.stdin.write(command);
+        console.log(`WRITE ${command}`)
+        this.ps.stdin.write(command+"\n");
     }
 
 }
