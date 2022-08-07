@@ -1,5 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect, startTransition } from 'react';
+
+function Ping() {
+  const [json, setJson] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const status = await fetch('/api/v0/status');
+      const json = await status.json();
+      setJson(json);
+    })();
+  })
+
+  if (json) {
+    return <p>{ json.title }</p>
+  } else {
+    return <p>loading...</p>
+  }
+}
+
+function Game() {
+  const [session, setSession] = useState(null);
+
+  async function start() {
+    console.log("start");
+    setSession(1);
+  }
+
+  if (session) {
+
+  } else {
+    return <button onClick={start}>start</button>
+  }
+}
 
 function App() {
   return (
@@ -7,16 +41,10 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hello World!
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Ping />
+        <Game />
       </header>
     </div>
   );

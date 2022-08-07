@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Zork Dungeon",
+  "name": "Web interface to zork dungeon",
   "icons": [
     {
       "src": "favicon.ico",
