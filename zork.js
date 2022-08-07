@@ -1,23 +1,25 @@
 const { exec, spawn } = require('child_process')
 
-//const ps = spawn('./dungeon', [], {'cwd': 'almy'});
-const ps = spawn('script', ['-c', './dungeon'], {'cwd': 'almy'});
+class Zork {
+    constructor(options) {
+        this.ps = null;
+        const output_cb = options.output_cb || ((data) => {console.log(`output: ${data}`)});
+        const close_cb = options.close_cb || ((code) => {console.log(`exit: ${code}`)});
+        this.ps = spawn('script', ['-c', './dungeon'], {'cwd': 'almy'});
+        this.ps.stdout.on('data', output_cb);
+        this.ps.stderr.on('data', data => {console.error(`stderr: ${data}`)});
+        this.ps.on('close', close_cb);
+    }
 
-if (1) {
-    ps.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-    });
-    
-    ps.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-    });
+    write(command) {
+        if (!this.ps) {
+            console.error(`cannot write: no process started`);
+            return;
+        }
+        this.ps.stdin.write(command);
+    }
 
-    ps.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-        process.exit(0);
-    });
-
-    process.stdin.on('data', (data) => {
-        ps.stdin.write(data);
-    })
 }
+
+const zork = new Zork({close_cb: process.exit});
+process.stdin.on('data', command => zork.write(command));
