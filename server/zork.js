@@ -1,6 +1,6 @@
 const { exec, spawn } = require('child_process')
 
-class Zork {
+class Session {
     constructor(options) {
         this.ps = null;
         const output_cb = options.output_cb || ((data) => {console.log(`output: ${data}`)});
@@ -21,5 +21,7 @@ class Zork {
 
 }
 
-const zork = new Zork({close_cb: process.exit});
-process.stdin.on('data', command => zork.write(command));
+if (0) {
+    const session = new Session({close_cb: process.exit});
+    process.stdin.on('data', command => zork.write(command));
+}

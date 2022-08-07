@@ -3,9 +3,10 @@
 ## development
 
 Use two terminals for backend and frontend. 
+The commands will watch file modifications and restart automatically.
 For the backend:
 
-`nodemon server.js`
+`nodemon`
 
 For the frontend:
 

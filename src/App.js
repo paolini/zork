@@ -14,7 +14,7 @@ function Ping() {
   })
 
   if (json) {
-    return <p>{ json.title }</p>
+    return <p>{ json.message }</p>
   } else {
     return <p>loading...</p>
   }

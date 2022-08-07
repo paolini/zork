@@ -1,19 +1,14 @@
 const path = require('path');
 const express = require('express');
-var morgan = require('morgan')
+const morgan = require('morgan')
 
 const app = express();
 
 app.use(morgan('tiny'));
 app.use(express.static('build'));
 
-app.get('/api/v0/status', (req, res) => {
-    res.send({
-        title: "hello there!!!!"
-    })
-})
+app.use('/api/v0', require('./api').router)
 
-
-const PORT = 8000;
+const PORT = parseInt(process.env.PORT || "8000");
 app.listen(PORT);
 console.log(`server started: http://localhost:${PORT}`);
