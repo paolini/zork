@@ -14,3 +14,10 @@ For the frontend:
 
 The react-script will serve static files while proxying unknown requests to the server frontend.
 
+## deployment
+
+Build
+
+`npm run build`
+
+`node server/server.js`

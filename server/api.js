@@ -1,5 +1,4 @@
 const express = require('express');
-const zork = require('./zork');
 
 var router = express.Router();
 
