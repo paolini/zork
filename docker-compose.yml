@@ -1,0 +1,8 @@
+version: "2.1"
+
+services:
+  zork:
+    image: paolini/zork:latest
+    restart: unless-stopped
+    ports:
+      - 80:8000
