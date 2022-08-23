@@ -6,11 +6,11 @@ Use two terminals for backend and frontend.
 The commands will watch file modifications and restart automatically.
 For the backend:
 
-`nodemon`
+  nodemon
 
 For the frontend:
 
-`npm start`
+  npm start
 
 The react-script will serve static files while proxying unknown requests to the server frontend.
 
@@ -18,6 +18,5 @@ The react-script will serve static files while proxying unknown requests to the 
 
 Build
 
-`npm run build`
-
-`node server/server.js`
+  npm run build
+  node server/server.js
