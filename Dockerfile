@@ -3,6 +3,7 @@ FROM node:16
 # add 32-bit support
 RUN dpkg --add-architecture i386
 RUN apt-get update && apt-get install --yes libc6:i386 libncurses5:i386 libstdc++6:i386
+RUN apt-get install --yes gcc-multilib
 
 # Create app directory
 WORKDIR /app

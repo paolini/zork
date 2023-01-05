@@ -6,8 +6,6 @@ const websockets = require('./websockets')
 
 const app = express();
 
-// Set up a headless websocket server that prints any
-// events that come in.
 const wsServer = new ws.Server({ noServer: true });
 wsServer.on('connection', websockets.new_connection);
 setInterval(websockets.heart_beat, 10000);
